@@ -1,0 +1,10 @@
+{
+  "name": "dice-game",
+  "version": "1.0.0",
+  "description": "Simple dice game with modern UI",
+  "scripts": {
+    "test": "echo 'No tests specified'"
+  },
+  "author": "",
+  "license": "MIT"
+}

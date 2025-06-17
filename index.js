@@ -1,25 +1,31 @@
-var randomNumber1 = Math.floor(Math.random()*6)+1; //1-6
+const diceImages = document.querySelectorAll('.dice img');
+const resultHeading = document.getElementById('result');
 
-var randomDiceImage = "dice" + randomNumber1 + ".png"; //dice1.png - dice6.png
+function rollOnce() {
+  const randomNumber1 = Math.floor(Math.random() * 6) + 1;
+  const randomNumber2 = Math.floor(Math.random() * 6) + 1;
 
-var randomImageSource = "images/" + randomDiceImage; //images/dice1.png - images/dice6.png
+  diceImages[0].setAttribute('src', `images/dice${randomNumber1}.png`);
+  diceImages[1].setAttribute('src', `images/dice${randomNumber2}.png`);
 
-var image1 = document.querySelectorAll("img")[0];
-
-image1.setAttribute("src", randomImageSource);
-
-
-
-var randomNumber2 = Math.floor(Math.random()*6)+1; //1-6
-
-var randomImageSource2 = "images/dice" + randomNumber2 + ".png"; //images/dice1.png - images/dice6.png
-
-document.querySelectorAll("img")[1].setAttribute("src", randomImageSource2);
-
-if(randomNumber1>randomNumber2){
-    document.querySelector("h1").innerHTML="🚩Player 1 Wins!";
-}else if(randomNumber1 < randomNumber2){
-    document.querySelector("h1").innerHTML="Player 2 Wins!🚩";
-}else{
-    document.querySelector("h1").innerHTML="Draw";
+  if (randomNumber1 > randomNumber2) {
+    resultHeading.textContent = '🚩 Player 1 Wins!';
+  } else if (randomNumber1 < randomNumber2) {
+    resultHeading.textContent = 'Player 2 Wins! 🚩';
+  } else {
+    resultHeading.textContent = 'Draw!';
+  }
 }
+
+function rollDice() {
+  diceImages.forEach(img => img.classList.add('rolling'));
+  setTimeout(() => {
+    diceImages.forEach(img => img.classList.remove('rolling'));
+    rollOnce();
+  }, 600);
+}
+
+document.getElementById('roll-button').addEventListener('click', rollDice);
+
+// Roll once on load with animation
+rollDice();
